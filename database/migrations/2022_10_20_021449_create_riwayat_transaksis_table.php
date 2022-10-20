@@ -14,12 +14,12 @@ class CreateRiwayatTransaksisTable extends Migration
     public function up()
     {
         Schema::create('riwayat_transaksis', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('user_id');
-            $table->string('jenis_transaksi');
+            $table->increments('id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
+            $table->string('jenis_transaksi')->nullable();
             $table->bigInteger('jumlah_masuk')->nullable();
             $table->bigInteger('jumlah_keluar')->nullable();
-            $table->datetime('tgl_transaksi');
+            $table->datetime('tgl_transaksi')->nullable();
 
             $table->timestamps();
         });

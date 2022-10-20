@@ -2,7 +2,7 @@
 <p>
     Verifikasi pada link berikut
     <button type="button" class="btn btn-primary">
-        <a href="{{route('register-verifying', ['id' => $email['id'], 'date' => $email['date'], 'hash' => $email['hash']])}}.">
+        <a href="{{route('register-verifying', ['id' => $email['id'], 'date' => $email['date']])}}.">
             Verifikasi Email
         </a>
     </button>

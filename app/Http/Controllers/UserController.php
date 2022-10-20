@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mail\MailVerified;
+use App\Models\Tabungan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
@@ -42,8 +43,7 @@ class UserController extends Controller
             'link' => $link,
             'id' => $getId->id,
             'date' => $getDate,
-            // 'time' => $getTime,
-            'hash' => $getHash,
+            // 'hash' => $getHash,
         ];
 
         Mail::to($request->email)->send(new MailVerified($email));
@@ -53,14 +53,21 @@ class UserController extends Controller
     }
 
     public function verifying($id, $date)
-    {
-        if(Carbon::now()->eq($date) === true ) {
-            // return dd($date);
-            return redirect()->route('login')->with('success', 'Link expired');        
+    {        
+        if(Carbon::now()->gte($date)) {
+            
+            return redirect()->route('register')->with('success', 'Link expired');        
         }
         
         User::find($id)->update([
             'email_verified_at' => Carbon::now()
+        ]);
+
+        Tabungan::create([
+            'user_id' => $id,
+            'saldo' => 0,
+            'hutang' => 0,
+            'difference' => 0,
         ]);
 
         return redirect()->route('login')->with('success', 'Email anda telah berhasil diverifikasi, silahkan login.');

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RiwayatTransaksi;
 use App\Models\Tabungan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class TabunganController extends Controller
 {
@@ -17,9 +19,10 @@ class TabunganController extends Controller
     {
         //
         $id = Auth::guard('user')->user()->id;
-        // $data = Tabungan::find($id)->first();
+        $data = Tabungan::where('user_id', '=', $id)->get();
+        $riwayat = RiwayatTransaksi::where('user_id', '=', $id)->get();
 
-        return view('dashboard');
+        return view('dashboard')->with('data', $data)->with('riwayat', $riwayat);
     }
 
     /**
@@ -41,6 +44,47 @@ class TabunganController extends Controller
     public function store(Request $request)
     {
         //
+        $id = Auth::guard('user')->user()->id;
+
+        $data_awal = Tabungan::where('user_id', '=', $id)->first();
+
+        // return dd($data_awal);
+
+        if($request->jenis_transaksi == 1) {
+            if($data_awal->saldo >= $request->jumlah) {
+                Tabungan::find($data_awal->id)->update([
+                    'saldo' => ($data_awal->saldo - $request->jumlah),
+                    'difference' => ($data_awal->difference - $request->jumlah)
+                ]);
+
+                RiwayatTransaksi::create([
+                    'user_id' => $id,
+                    'jenis_transaksi' => 'Tarik',
+                    'jumlah_keluar' => $request->jumlah,
+                    'tgl_transaksi' => Carbon::now()
+                ]);
+
+                
+                return redirect()->route('home')->with('success', 'Transaksi Berhasil');
+            }
+
+            return redirect()->route('home')->with('fail', 'Saldo Tidak Cukup');
+        }
+
+        
+        Tabungan::find($data_awal->id)->update([
+            'saldo' => ($data_awal->saldo + $request->jumlah),
+            'difference' => ($data_awal->difference + $request->jumlah)
+        ]);
+        
+        RiwayatTransaksi::create([
+            'user_id' => $id,
+            'jenis_transaksi' => 'Setor',
+            'jumlah_masuk' => $request->jumlah,
+            'tgl_transaksi' => Carbon::now()
+        ]);
+        return redirect()->route('home')->with('success', 'Transaksi Berhasil');
+
     }
 
     /**

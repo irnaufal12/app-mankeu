@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TabunganController;
 use App\Http\Controllers\UserController;
+use App\Models\Tabungan;
 use Illuminate\Support\Facades\Route;
 
 
@@ -27,11 +28,13 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::post('/register/post', [UserController::class, 'store'])->name('register-post');
-Route::any('/verifyEmail/{id}/{date}/{hash}', [UserController::class, 'verifying'])->name('register-verifying');
+Route::any('/verifyEmail/{id}/{date}', [UserController::class, 'verifying'])->name('register-verifying');
 
 Route::post('/login', [UserController::class, 'login'])->name('login-post');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout-post');
 
 Route::middleware(['auth:user', 'verified'])->group(function () {
     Route::get('/home', [TabunganController::class, 'index'])->name('home');
+
+    Route::any('/add-transaksi', [TabunganController::class, 'store'])->name('add-transaksi');
 });
