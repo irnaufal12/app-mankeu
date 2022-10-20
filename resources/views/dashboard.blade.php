@@ -39,16 +39,16 @@
                 </icon>
                 <span>Transaksi Baru</span>
             </button>
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addTransaksi">
+            <a href="{{route('exportTabungan')}}" class="btn btn-success">
                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                 <span>
                     Export Tabungan
                 </span> 
-            </button>
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addTransaksi">
+            </a>
+            <a href="{{route('exportRiwayat')}}" class="btn btn-success">
                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                 Export Riwayat
-            </button> 
+            </a> 
             <table class="table table-hover table-inverse table-responsive" style="margin-top:20px">
                 <thead class="thead-inverse">
                     <h1 style="margin-top:20px">Tabungan</h1>

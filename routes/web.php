@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\TabunganController;
 use App\Http\Controllers\UserController;
 use App\Models\Tabungan;
@@ -35,6 +36,8 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout-post');
 
 Route::middleware(['auth:user', 'verified'])->group(function () {
     Route::get('/home', [TabunganController::class, 'index'])->name('home');
+    Route::get('/download/tabungan', [ExportController::class, 'exportTabungan'])->name('exportTabungan');
+    Route::get('/download/riwayat', [ExportController::class, 'exportRiwayat'])->name('exportRiwayat');
 
     Route::any('/add-transaksi', [TabunganController::class, 'store'])->name('add-transaksi');
 });

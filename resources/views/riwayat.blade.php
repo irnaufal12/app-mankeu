@@ -1,6 +1,4 @@
-@extends('dashboard')
-@section('content_2')
-<table class="table table-hover table-inverse table-responsive">
+            <table class="table table-hover table-inverse table-responsive">
                 <thead class="thead-inverse">
                     <h1>Riwayat Transaksi</h1>
                     <tr>
@@ -26,4 +24,3 @@
                         </tr> --}}
                     </tbody>
             </table>
-@endsection

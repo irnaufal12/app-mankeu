@@ -1,6 +1,5 @@
-@extends ('dashboard')
-@section ('content_1')
-<table class="table table-hover table-inverse table-responsive" style="margin-top:20px">
+            <table class="table table-hover table-inverse table-responsive" style="margin-top:20px">
+                <h1 style="margin-top:20px">Tabungan</h1>
                 <thead class="thead-inverse">
                     <h1 style="margin-top:20px">Tabungan</h1>
                     <tr>
@@ -10,7 +9,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $item)
+                        @foreach ($tabungan as $item)
                             <tr>
                                 <td scope="row">{{$item->saldo}}</td>
                                 <td>{{$item->hutang}}</td>
@@ -24,4 +23,3 @@
                         </tr> --}}
                     </tbody>
             </table>
-@endSection
