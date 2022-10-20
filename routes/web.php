@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TabunganController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,5 +33,5 @@ Route::post('/login', [UserController::class, 'login'])->name('login-post');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout-post');
 
 Route::middleware(['auth:user', 'verified'])->group(function () {
-    Route::get('/home', function () {return view('dashboard');})->name('home');
+    Route::get('/home', [TabunganController::class, 'index'])->name('home');
 });

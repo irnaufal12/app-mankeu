@@ -10,7 +10,7 @@ class Tabungan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'saldo', 'hutang', 'update_saldo_terakhir', 'transaksi_terakhir'
+        'user_id', 'saldo', 'hutang', 'difference'
     ];
 
     public function user_id()

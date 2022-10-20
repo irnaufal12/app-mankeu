@@ -19,7 +19,7 @@ class CreateRiwayatTransaksisTable extends Migration
             $table->string('jenis_transaksi');
             $table->bigInteger('jumlah_masuk')->nullable();
             $table->bigInteger('jumlah_keluar')->nullable();
-            $table->datetime('jumlah_tgl_transaksi');
+            $table->datetime('tgl_transaksi');
 
             $table->timestamps();
         });
