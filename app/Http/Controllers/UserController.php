@@ -78,6 +78,10 @@ class UserController extends Controller
         // return dd($credentials);
 
         if (Auth::guard('user')->attempt($credentials)) {
+            $check = User::where('email', '=', $credentials['email'])->first();
+            if($check->email_verified_at == NULL) {
+                return redirect()->route('login')->with('fail', 'Email belum diverifikasi');
+            }
             return redirect()->intended('home');
         } else {
             return redirect()->route('login')->with('fail', 'Login Failed');
